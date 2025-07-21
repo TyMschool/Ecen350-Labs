@@ -5,17 +5,12 @@ SRC = benchmark.c
 TARGET = benchmark
 
 # Default target
-all: noopt opt
-
-
-# Compile with no optimization
-noopt:
-	$(CC) -O0 -g -o $(TARGET)_O0 $(SRC)
+all: opt
 
 # Compile with high optimization
 opt:
-	$(CC) -O3 -g -o $(TARGET)_O3 $(SRC)
+	$(CC) -O3 -g -o $(TARGET) $(SRC)
 
 # Clean build artifacts
 clean:
-	rm -f $(TARGET)_O0 $(TARGET)_O3
+	rm -f $(TARGET)
