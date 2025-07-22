@@ -1,4 +1,5 @@
-/∗ main.c simple program to test your assembly program ∗/
+/* main.c simple program to test your assembly program */
+
 
 #include <stdio.h>
 
@@ -8,7 +9,7 @@ int main ( void ){
   
   long long int a = test (Y) ;  // Replace Y with any number you like
   
-  printf (”Result is = %d\n”, a);
+  printf ("Result is = %d\n", a);
   
   return 0;
   
