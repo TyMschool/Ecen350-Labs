@@ -1,9 +1,9 @@
-# ASS01 Example Makefile
+# LAB01 Example Makefile
 #
 # This makefile is intended for use with GNU make
 # This example is intended to be built with Linaro bare-metal GCC
 
-TARGET=Lab02
+TARGET=Lab02-1
 CC=gcc
 LD=gcc
 
