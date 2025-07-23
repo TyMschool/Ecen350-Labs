@@ -3,11 +3,10 @@
 .globl test
 
 test:
-	ADRP X0, msg1
-	ADD X0,X0, :lo12:msg1
+	ADR X0, msg1
 	ADR X1, msg2
-	ADRP X6, num1
-	ADD X6,X6, :lo12:num1
+	ADR X6, num1
+
 	LDURB w2, [X6,0]
 	LDURSH X3,[X6,1]
 	LDURSW X4,[X6,3]
