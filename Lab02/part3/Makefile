@@ -3,7 +3,7 @@
 # This makefile is intended for use with GNU make
 # This example is intended to be built with Linaro bare-metal GCC
 
-TARGET=Lab02
+TARGET=Lab02-3
 CC=gcc
 LD=gcc
 
