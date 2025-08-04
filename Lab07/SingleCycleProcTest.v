@@ -33,7 +33,7 @@ module SingleCycleProcTest_v;
 
    // Inputs
    reg 		  CLK;
-   reg 		  Reset_L;
+   reg		  Reset;
    reg [63:0] 	  startPC;
    reg [7:0] 	  passed;
    reg [15:0] 	  watchdog;
@@ -45,7 +45,7 @@ module SingleCycleProcTest_v;
    // Instantiate the Unit Under Test (UUT)
    singlecycle uut (
 		    .CLK(CLK),
-		    .resetl(Reset_L),
+		    .reset(Reset),
 		    .startpc(startPC),
 		    .currentpc(currentPC),
 		    .MemtoRegOut(MemtoRegOut)
@@ -53,7 +53,7 @@ module SingleCycleProcTest_v;
 
    initial begin
       // Initialize Inputs
-      Reset_L = 1;
+      Reset = 0;
       startPC = 0;
       passed = 0;
 
@@ -65,11 +65,11 @@ module SingleCycleProcTest_v;
 
       // Program 1
       #1
-        Reset_L = 0; startPC = 0;
+        Reset = 1; startPC = 0;
       @(posedge CLK);
       @(negedge CLK);
       @(posedge CLK);
-      Reset_L = 1;
+      Reset = 0;
 
       // ***********************************************************
       // This while loop will continue cycling the processor until the
