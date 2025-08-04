@@ -1,12 +1,12 @@
-module singlecycle(
-		   input 	     resetl,
-		   input [63:0]      startpc,
+module SingleCycleProc(
+		   input	     reset, //Active High
+		   input [63:0]	     startpc,
 		   output reg [63:0] currentpc,
-		   output [63:0]     MemtoRegOut,  // this should be
+		   output [63:0]     MemtoRegOut, // this should be
 						   // attached to the
 						   // output of the
 						   // MemtoReg Mux
-		   input 	     CLK
+		   input	     CLK
 		   );
 
    // Next PC connections
@@ -22,16 +22,16 @@ module singlecycle(
    wire [10:0] 			     opcode;
 
    // Control wires
-   wire 			     reg2loc;
-   wire 			     alusrc;
-   wire 			     mem2reg;
-   wire 			     regwrite;
-   wire 			     memread;
-   wire 			     memwrite;
-   wire 			     branch;
-   wire 			     uncond_branch;
-   wire [3:0] 			     aluctrl;
-   wire [1:0] 			     signop;
+   wire 			     Reg2Loc;
+   wire 			     ALUSrc;
+   wire 			     MemtoReg;
+   wire 			     RegWrite;
+   wire 			     MemRead;
+   wire 			     MemWrite;
+   wire 			     Branch;
+   wire 			     Uncondbranch;
+   wire [3:0] 			     ALUop;
+   wire [1:0] 			     SignOp;
 
    // Register file connections
    wire [63:0] 			     regoutA;     // Output A
@@ -45,18 +45,18 @@ module singlecycle(
    wire [63:0] 			     extimm;
 
    // PC update logic
-   always @(negedge CLK)
+   always @(posedge CLK)
      begin
-        if (resetl)
-          currentpc <= #3 nextpc;
-        else
+        if (reset)
           currentpc <= #3 startpc;
+        else
+          currentpc <= #3 nextpc;
      end
 
    // Parts of instruction
    assign rd = instruction[4:0];
    assign rm = instruction[9:5];
-   assign rn = reg2loc ? instruction[4:0] : instruction[20:16];
+   assign rn = Reg2Loc ? instruction[4:0] : instruction[20:16];
    assign opcode = instruction[31:21];
 
    InstructionMemory imem(
@@ -64,17 +64,17 @@ module singlecycle(
 			  .Address(currentpc)
 			  );
 
-   control control(
-		   .reg2loc(reg2loc),
-		   .alusrc(alusrc),
-		   .mem2reg(mem2reg),
-		   .regwrite(regwrite),
-		   .memread(memread),
-		   .memwrite(memwrite),
-		   .branch(branch),
-		   .uncond_branch(uncond_branch),
-		   .aluop(aluctrl),
-		   .signop(signop),
+   control SingleCycleControl(
+		   .Reg2Loc(Reg2Loc),
+		   .ALUSrc(ALUSrc),
+		   .MemtoReg(MemtoReg),
+		   .RegWrite(RegWrite),
+		   .MemRead(MemRead),
+		   .MemWrite(MemWrite),
+		   .Branch(Branch),
+		   .Uncondbranch(Uncondbranch),
+		   .ALUOp(ALUOp),
+		   .SignOp(SignOp),
 		   .opcode(opcode)
 		   );
 
