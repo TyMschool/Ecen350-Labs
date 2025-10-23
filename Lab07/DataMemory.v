@@ -46,20 +46,24 @@ module DataMemory(ReadData , Address , WriteData , MemoryRead , MemoryWrite , Cl
 
    // This always block reads the data memory and places a double word
    // on the ReadData bus.
-   always @(posedge Clock)
-     begin
-        if(MemoryRead)
-          begin
-             ReadData[63:56] <=  memBank[Address];
-             ReadData[55:48] <=  memBank[Address+1];
-             ReadData[47:40] <=  memBank[Address+2];
-             ReadData[39:32] <=  memBank[Address+3];
-             ReadData[31:24] <=  memBank[Address+4];
-             ReadData[23:16] <=  memBank[Address+5];
-             ReadData[15:8] <=  memBank[Address+6];
-             ReadData[7:0] <=  memBank[Address+7];
-          end
-     end
+   always @(*)
+  begin
+     if(MemoryRead)
+       begin
+          ReadData[63:56] = memBank[Address];
+          ReadData[55:48] = memBank[Address+1];
+          ReadData[47:40] = memBank[Address+2];
+          ReadData[39:32] = memBank[Address+3];
+          ReadData[31:24] = memBank[Address+4];
+          ReadData[23:16] = memBank[Address+5];
+          ReadData[15:8]  = memBank[Address+6];
+          ReadData[7:0]   = memBank[Address+7];
+       end
+     else
+       begin
+          ReadData = 64'bx;
+       end
+  end
 
    // This always block takes data from the WriteData bus and writes
    // it into the DataMemory.

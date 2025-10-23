@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module SingleCycleProc(
 		   input	     reset, //Active High
 		   input [63:0]	     startpc,
@@ -30,7 +32,7 @@ module SingleCycleProc(
    wire 			     MemWrite;
    wire 			     Branch;
    wire 			     Uncondbranch;
-   wire [3:0] 			     ALUop;
+   wire [3:0] 			     ALUOp;
    wire [1:0] 			     SignOp;
 
    // Register file connections
@@ -44,13 +46,19 @@ module SingleCycleProc(
    // Sign Extender connections
    wire [63:0] 			     extimm;
 
+   // Data Memory connections
+   wire [63:0] 			     dmemout;     // Data memory output
+
+   // Additional mux wires
+   wire [63:0] 			     aluinputB;   // Second ALU input (from mux)
+
    // PC update logic
    always @(posedge CLK)
      begin
         if (reset)
-          currentpc <= #3 startpc;
+          currentpc <= startpc;
         else
-          currentpc <= #3 nextpc;
+          currentpc <= nextpc;
      end
 
    // Parts of instruction
@@ -64,7 +72,7 @@ module SingleCycleProc(
 			  .Address(currentpc)
 			  );
 
-   control SingleCycleControl(
+   SC_Control control(
 		   .Reg2Loc(Reg2Loc),
 		   .ALUSrc(ALUSrc),
 		   .MemtoReg(MemtoReg),
@@ -83,7 +91,58 @@ module SingleCycleProc(
     * Do not forget any additional multiplexers that may be required.
     */
 
+   // Register File
+   RegisterFile regfile(
+			.BusA(regoutA),
+			.BusB(regoutB),
+			.BusW(MemtoRegOut),
+			.RA(rm),
+			.RB(rn),
+			.RW(rd),
+			.RegWr(RegWrite),
+			.Clk(CLK)
+			);
 
+   // Sign Extender
+   SignExtender signext(
+			.SignExOut(extimm),
+			.Instruction(instruction),
+			.SignOp(SignOp)
+			);
+
+   // ALU Input B Mux (selects between register or immediate)
+   assign aluinputB = ALUSrc ? extimm : regoutB;
+
+   // ALU
+   ALU alu(
+	   .BusW(aluout),
+	   .BusA(regoutA),
+	   .BusB(aluinputB),
+	   .ALUCtrl(ALUOp),
+	   .Zero(zero)
+	   );
+
+   // Data Memory
+   DataMemory dmem(
+		   .ReadData(dmemout),
+		   .Address(aluout),
+		   .WriteData(regoutB),
+		   .MemoryRead(MemRead),
+		   .MemoryWrite(MemWrite),
+		   .Clock(CLK)
+		   );
+
+   // MemtoReg Mux (selects between ALU result or memory data)
+   assign MemtoRegOut = MemtoReg ? dmemout : aluout;
+
+   // Next PC Logic
+   NextPClogic pclogic(
+		       .NextPC(nextpc),
+		       .CurrentPC(currentpc),
+		       .SignExtImm64(extimm),
+		       .Branch(Branch),
+		       .ALUZero(zero),
+		       .Uncondbranch(Uncondbranch)
+		       );
 
 endmodule
-

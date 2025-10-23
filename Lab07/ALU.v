@@ -12,11 +12,8 @@ module ALU(
     input      [63:0] BusA,
     input      [63:0] BusB,
     input      [3:0]  ALUCtrl,
-    output            Zero
+    output reg        Zero
 );
-
-    // Zero flag is set when BusW is all zeros
-    assign Zero = (BusW == 64'b0);
 
     always @(*) begin
         case (ALUCtrl)
@@ -50,6 +47,9 @@ module ALU(
                 BusW = 64'b0;
             end
         endcase
+
+        Zero = (BusW == 64'b0) ? 1'b1 : 1'b0;
+
     end
 
 endmodule

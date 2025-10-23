@@ -15,26 +15,22 @@ module SignExtender(
     always @(*) begin
         case (SignOp)
             `Itype: begin
-                // I-Type: 12-bit immediate (bits [11:0])
-                // Sign extend from bit 11
-                SignExOut = {{52{Instruction[11]}}, Instruction[11:0]};
+                // I-Type: 12-bit immediate in bits [21:10]
+                SignExOut = {{52{Instruction[21]}}, Instruction[21:10]};
             end
             
             `Dtype: begin
-                // D-Type: 9-bit immediate (bits [8:0])
-                // Sign extend from bit 8
-                SignExOut = {{55{Instruction[8]}}, Instruction[8:0]};
+                // D-Type: 9-bit immediate in bits [20:12]
+                SignExOut = {{55{Instruction[20]}}, Instruction[20:12]};
             end
             
             `CBtype: begin
-                // CB-Type: 19-bit immediate (bits [18:0])
-                // Sign extend and shift left by 2 bits to mainttain 4 byte alignments
-                SignExOut = {{43{Instruction[18]}}, Instruction[18:0], 2'b00};
+                // CB-Type: 19-bit immediate in bits [23:5]
+                SignExOut = {{43{Instruction[23]}}, Instruction[23:5], 2'b00};
             end
             
             `Btype: begin
-                // B-Type: 26-bit immediate (bits [25:0])
-                // Sign extend and shift left by 2 bits to mainttain 4 byte alignments
+                // B-Type: 26-bit immediate in bits [25:0]
                 SignExOut = {{36{Instruction[25]}}, Instruction[25:0], 2'b00};
             end
             
