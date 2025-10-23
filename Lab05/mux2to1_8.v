@@ -4,3 +4,12 @@ module mux2to1_8 (
     input  wire       sel,   // Select signal
     output reg  [7:0] out    // Output
 );
+
+    always @(*) begin
+        if (sel == 1'b0)
+            out = in0;
+        else
+            out = in1;
+    end
+
+endmodule

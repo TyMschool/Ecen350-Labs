@@ -1,0 +1,43 @@
+$date
+	Tue Sep 30 18:26:03 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module GatesTest $end
+$var wire 3 ! out [0:2] $end
+$var reg 2 " in [0:1] $end
+$scope module DUT $end
+$var wire 2 # in [0:1] $end
+$var wire 3 $ out [0:2] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 $
+b0 #
+b0 "
+b0 !
+$end
+#10
+b11 !
+b11 $
+b1 "
+b1 #
+#20
+b10 "
+b10 #
+#30
+b110 !
+b110 $
+b11 "
+b11 #
+#40
+b0 !
+b0 $
+b0 "
+b0 #
