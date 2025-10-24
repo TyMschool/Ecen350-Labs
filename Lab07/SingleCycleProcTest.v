@@ -91,7 +91,21 @@ module SingleCycleProcTest_v;
       // Add your new tests here
       // ***********************************************************
       //Program 2
-      
+      #1
+         Reset = 1; startPC = 64'h34;
+      @(posedge CLK);
+      @(negedge CLK);
+      Reset = 0;
+
+      while (currentPC < 64'h58)
+      begin
+         @(posedge CLK);
+         @(negedge CLK);
+
+         $display("CurrentPC:%h", currentPC);
+      end
+
+      passTest(uut.regfile.regs[10], 64'h123456789abcdef0, "Results of Program 2", passed);
 
       // Done
       allPassed(passed, 2);   // Be sure to change the one to match

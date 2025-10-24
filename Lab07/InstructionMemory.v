@@ -60,8 +60,32 @@ module InstructionMemory(Data, Address);
 	63'h02c: Data = 32'hF80203ED;
 	63'h030: Data = 32'hF84203ED;  //One last load to place stored value on memdbus for test checking.
 
-	/* Add code for your tests here */
+	/* Add code for your tests here 
+	// Test Program 2: MOVZ test
+	// Build 0x123456789abcdef0 in X9 using MOVZ and ORR
 
+	MOVZ X9, 0xdef0, LSL 0   // X9 = 0x000000000000def0
+	MOVZ X10, 0x9abc, LSL 16 // X10 = 0x0000000009abc0000
+	ORR X9, X9, X10          // X9 = 0x0000000009abcdef0
+
+	MOVZ X10, 0x5678, LSL 32 // X10 = 0x0000567800000000
+	ORR X9, X9, X10          // X9 = 0x000056789abcdef0
+
+	MOVZ X10, 0x1234, LSL 48 // X10 = 0x1234000000000000
+	ORR X9, X9, X10          // X9 = 0x123456789abcdef0
+
+	STUR X9, [XZR, 0x28]     // Store to address 0x28
+	LDUR X10, [XZR, 0x28]    // Load back to X10
+	*/
+	63'h034: Data = 32'hD29BDE09;  // MOVZ X9, 0xdef0, LSL 0
+	63'h038: Data = 32'hD2B3578A;  // MOVZ X10, 0x9abc, LSL 16
+	63'h03c: Data = 32'hAA0A0129;  // ORR X9, X9, X10
+	63'h040: Data = 32'hD2CACF0A;  // MOVZ X10, 0x5678, LSL 32
+	63'h044: Data = 32'hAA0A0129;  // ORR X9, X9, X10
+	63'h048: Data = 32'hD2E2468A;  // MOVZ X10, 0x1234, LSL 48
+	63'h04c: Data = 32'hAA0A0129;  // ORR X9, X9, X10
+	63'h050: Data = 32'hF80283E9;  // STUR X9, [XZR, 0x28]
+	63'h054: Data = 32'hF84283EA;  // LDUR X10, [XZR, 0x28]
 	
 	default: Data = 32'hXXXXXXXX;
       endcase
