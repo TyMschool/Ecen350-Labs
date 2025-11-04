@@ -1,5 +1,5 @@
 $date
-	Thu Oct 23 16:22:03 2025
+	Tue Oct 28 18:25:19 2025
 $end
 $version
 	Icarus Verilog
@@ -51,192 +51,9 @@ $var reg 1600 = test_name [1600:1] $end
 $var reg 11 > test_opcode [10:0] $end
 $upscope $end
 $upscope $end
-$scope module SC_Control_tb $end
-$scope module uut $end
-$upscope $end
-$scope task check_outputs $end
-$upscope $end
-$upscope $end
-$scope module SingleCycleProcTest_v $end
-$var wire 64 ? currentPC [63:0] $end
-$var wire 64 @ MemtoRegOut [63:0] $end
-$var reg 1 A CLK $end
-$var reg 1 B Reset $end
-$var reg 8 C passed [7:0] $end
-$var reg 64 D startPC [63:0] $end
-$var reg 16 E watchdog [15:0] $end
-$scope module uut $end
-$var wire 1 A CLK $end
-$var wire 1 B reset $end
-$var wire 64 F startpc [63:0] $end
-$var wire 1 G zero $end
-$var wire 5 H rn [4:0] $end
-$var wire 5 I rm [4:0] $end
-$var wire 64 J regoutB [63:0] $end
-$var wire 64 K regoutA [63:0] $end
-$var wire 5 L rd [4:0] $end
-$var wire 11 M opcode [10:0] $end
-$var wire 64 N nextpc [63:0] $end
-$var wire 32 O instruction [31:0] $end
-$var wire 64 P extimm [63:0] $end
-$var wire 64 Q dmemout [63:0] $end
-$var wire 64 R aluout [63:0] $end
-$var wire 64 S aluinputB [63:0] $end
-$var wire 1 T Uncondbranch $end
-$var wire 2 U SignOp [1:0] $end
-$var wire 1 V RegWrite $end
-$var wire 1 W Reg2Loc $end
-$var wire 64 X MemtoRegOut [63:0] $end
-$var wire 1 Y MemtoReg $end
-$var wire 1 Z MemWrite $end
-$var wire 1 [ MemRead $end
-$var wire 1 \ Branch $end
-$var wire 1 ] ALUSrc $end
-$var wire 4 ^ ALUOp [3:0] $end
-$var reg 64 _ currentpc [63:0] $end
-$scope module alu $end
-$var wire 64 ` BusB [63:0] $end
-$var wire 1 G Zero $end
-$var wire 64 a BusA [63:0] $end
-$var wire 4 b ALUCtrl [3:0] $end
-$var reg 64 c BusW [63:0] $end
-$upscope $end
-$scope module control $end
-$var wire 11 d opcode [10:0] $end
-$var reg 4 e ALUOp [3:0] $end
-$var reg 1 ] ALUSrc $end
-$var reg 1 \ Branch $end
-$var reg 1 [ MemRead $end
-$var reg 1 Z MemWrite $end
-$var reg 1 Y MemtoReg $end
-$var reg 1 W Reg2Loc $end
-$var reg 1 V RegWrite $end
-$var reg 2 f SignOp [1:0] $end
-$var reg 1 T Uncondbranch $end
-$upscope $end
-$scope module dmem $end
-$var wire 64 g Address [63:0] $end
-$var wire 1 A Clock $end
-$var wire 1 [ MemoryRead $end
-$var wire 1 Z MemoryWrite $end
-$var wire 64 h WriteData [63:0] $end
-$var reg 64 i ReadData [63:0] $end
-$scope task initset $end
-$var reg 64 j addr [63:0] $end
-$var reg 64 k data [63:0] $end
-$upscope $end
-$upscope $end
-$scope module imem $end
-$var wire 64 l Address [63:0] $end
-$var reg 32 m Data [31:0] $end
-$upscope $end
-$scope module pclogic $end
-$var wire 1 G ALUZero $end
-$var wire 1 \ Branch $end
-$var wire 64 n CurrentPC [63:0] $end
-$var wire 1 T Uncondbranch $end
-$var wire 64 o SignExtImm64 [63:0] $end
-$var reg 64 p NextPC [63:0] $end
-$upscope $end
-$scope module regfile $end
-$var wire 64 q BusA [63:0] $end
-$var wire 64 r BusW [63:0] $end
-$var wire 1 A Clk $end
-$var wire 5 s RA [4:0] $end
-$var wire 5 t RB [4:0] $end
-$var wire 5 u RW [4:0] $end
-$var wire 1 V RegWr $end
-$var wire 64 v BusB [63:0] $end
-$var reg 64 w readA [63:0] $end
-$var reg 64 x readB [63:0] $end
-$upscope $end
-$scope module signext $end
-$var wire 26 y Instruction [25:0] $end
-$var wire 2 z SignOp [1:0] $end
-$var reg 64 { SignExOut [63:0] $end
-$upscope $end
-$upscope $end
-$scope task allPassed $end
-$var reg 8 | numTests [7:0] $end
-$var reg 8 } passed [7:0] $end
-$upscope $end
-$scope task passTest $end
-$var reg 64 ~ actualOut [63:0] $end
-$var reg 64 !" expectedOut [63:0] $end
-$var reg 8 "" passed [7:0] $end
-$var reg 257 #" testType [256:0] $end
-$upscope $end
-$upscope $end
 $enddefinitions $end
 #0
 $dumpvars
-bx #"
-bx ""
-bx !"
-bx ~
-bx }
-bx |
-bx {
-bx z
-bx y
-bx x
-bx w
-bx v
-bx u
-bx t
-bx s
-bx r
-bx q
-bx p
-bx o
-bx n
-bx m
-bx l
-b0 k
-b100000 j
-bx i
-bx h
-bx g
-bx f
-bx e
-bx d
-bx c
-bx b
-bx a
-bx `
-bx _
-bx ^
-x]
-x\
-x[
-xZ
-xY
-bx X
-xW
-xV
-bx U
-xT
-bx S
-bx R
-bx Q
-bx P
-bx O
-bx N
-bx M
-bx L
-bx K
-bx J
-bx I
-bx H
-xG
-b0 F
-b0 E
-b0 D
-b0 C
-0B
-0A
-bx @
-bx ?
 b10001011000 >
 b10000010100010001000100001000000101001001100101011001110110100101110011011101000110010101110010 =
 0<
@@ -1081,7 +898,6 @@ b11100011 +
 b11100011 0
 b11100011 ,
 b111100 /
-1A
 #61000
 b10101010110111001100100011001010110011001101001011011100110010101100100001000000110111101110000011000110110111101100100011001010010000000111000 =
 b11100011100 >
